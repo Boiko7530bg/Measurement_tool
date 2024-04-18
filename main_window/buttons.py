@@ -20,3 +20,6 @@ class MainWindowButtons(customtkinter.CTkButton):
 
         self.add_comment_button = customtkinter.CTkButton(master, text="Add comment")
         self.add_comment_button.place(x=508, y=155)
+
+        self.admin_button = customtkinter.CTkButton(master, text="Admin")
+        self.admin_button.place(x=1, y=450)
