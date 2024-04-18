@@ -47,21 +47,19 @@ class MeasurementApp(customtkinter.CTk):
         self.timer_label.place(x=250, y=30)
 
     def start_stopwatch(self):
-        result = self.handle_checkboxes_before_timer_start()
-        if result:
-            if self.timer_stopped:
-                self.elapsed_time = 0
-                self.timer_stopped = False
+        if self.timer_stopped:
+            self.elapsed_time = 0
+            self.timer_stopped = False
 
-            if not self.timer_running:
-                self.start_time = time.time() - self.elapsed_time
-                self.update()
-                self.timer_running = True
+        if not self.timer_running:
+            self.start_time = time.time() - self.elapsed_time
+            self.update()
+            self.timer_running = True
 
-                self.buttons.start_button.configure(state=customtkinter.DISABLED)
-                self.buttons.stop_button.configure(state=customtkinter.NORMAL)
-                self.buttons.pause_button.configure(state=customtkinter.NORMAL)
-                self.lock_checkboxes_after_timer_start()
+            self.buttons.start_button.configure(state=customtkinter.DISABLED)
+            self.buttons.stop_button.configure(state=customtkinter.NORMAL)
+            self.buttons.pause_button.configure(state=customtkinter.NORMAL)
+            self.lock_checkboxes_after_timer_start()
 
     def stop_stopwatch(self):
         self.timer_running = False
@@ -91,17 +89,6 @@ class MeasurementApp(customtkinter.CTk):
 
         self.time_var.set("{:02d}:{:02d}:{:02d}".format(hours, minutes, seconds))
         self.after(1000, self.update)
-
-    def handle_checkboxes_before_timer_start(self):
-        checked_values = []
-        if self.check_boxes.measure_by_lines.get() == "on":
-            checked_values.append("on")
-        if self.check_boxes.measure_by_items.get() == "on":
-            checked_values.append("on")
-        if self.check_boxes.measure_by_other.get() == "on":
-            checked_values.append("on")
-
-        return True if len(checked_values) == 1 else False
 
     def lock_checkboxes_after_timer_start(self):
         self.check_boxes.measure_by_lines.configure(state=customtkinter.DISABLED)
