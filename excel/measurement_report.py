@@ -66,7 +66,7 @@ class MeasurementReport:
 
     def enter_team_name(self, team: MainWindowOptionMenus):
         team_name = team.select_team_option.get()
-        target_cell = f"{self.REPORT_COLUMN_NAMES['productive_time']}{str(self.last_row)}"
+        target_cell = f"{self.REPORT_COLUMN_NAMES['team']}{str(self.last_row)}"
         self._populate_report_cell(target_cell, team_name)
 
     def save_report(self):
