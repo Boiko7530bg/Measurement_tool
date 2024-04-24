@@ -1,4 +1,5 @@
 import datetime
+import os
 
 import openpyxl
 
@@ -34,6 +35,11 @@ class MeasurementReport:
         self.last_row = self._increase_row_number_by_one(self.REPORT_COLUMN_NAMES['measurement_id'])
         target_cell = f"{self.REPORT_COLUMN_NAMES['measurement_id']}{str(self.last_row)}"
         self._populate_report_cell(target_cell, measurement_id)
+
+    def enter_measurer(self):
+        name = os.getlogin()
+        target_cell = f"{self.REPORT_COLUMN_NAMES['username']}{str(self.last_row)}"
+        self._populate_report_cell(target_cell, name)
 
     def enter_start_time(self):
         target_cell = f"{self.REPORT_COLUMN_NAMES['time_start']}{str(self.last_row)}"

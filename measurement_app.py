@@ -55,6 +55,7 @@ class MeasurementApp(customtkinter.CTk):
         if not self.timer_running:
             self.start_time = time.time() - self.elapsed_time
             self.report.enter_measurement_id()
+            self.report.enter_measurer()
             self.report.enter_start_time()
             self.update()
             self.timer_running = True
