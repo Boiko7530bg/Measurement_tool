@@ -58,6 +58,7 @@ class MeasurementApp(customtkinter.CTk):
             self.report.enter_measurer()
             self.report.enter_start_time()
             self.report.enter_team_name(self.option_menus)
+            self.report.enter_process_name(self.option_menus)
             self.update()
             self.timer_running = True
 

@@ -69,6 +69,11 @@ class MeasurementReport:
         target_cell = f"{self.REPORT_COLUMN_NAMES['team']}{str(self.last_row)}"
         self._populate_report_cell(target_cell, team_name)
 
+    def enter_process_name(self, process: MainWindowOptionMenus):
+        process_name = process.select_process_option.get()
+        target_cell = f"{self.REPORT_COLUMN_NAMES['process']}{str(self.last_row)}"
+        self._populate_report_cell(target_cell, process_name)
+
     def save_report(self):
         try:
             self.report_wb.save(self.REPORT_WB_PATH)
