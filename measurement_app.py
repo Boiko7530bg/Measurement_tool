@@ -54,12 +54,7 @@ class MeasurementApp(customtkinter.CTk):
 
         if not self.timer_running:
             self.start_time = time.time() - self.elapsed_time
-            self.report.enter_measurement_id()
-            self.report.enter_measurer()
-            self.report.enter_start_time()
-            self.report.enter_team_name(self.option_menus)
-            self.report.enter_process_name(self.option_menus)
-            self.report.enter_team_member(self.option_menus)
+            self.populate_measurement_report_start()
             self.update()
             self.timer_running = True
 
@@ -71,10 +66,8 @@ class MeasurementApp(customtkinter.CTk):
     def stop_stopwatch(self):
         self.timer_running = False
         self.timer_stopped = True
+        self.populate_measurement_report_end()
 
-        self.report.enter_elapsed_time(self.elapsed_time)
-        self.report.enter_stop_time()
-        self.report.save_report()
         self.buttons.start_button.configure(state=customtkinter.NORMAL)
         self.buttons.stop_button.configure(state=customtkinter.DISABLED)
         self.buttons.pause_button.configure(state=customtkinter.DISABLED)
@@ -109,6 +102,19 @@ class MeasurementApp(customtkinter.CTk):
         self.check_boxes.measure_by_lines.configure(state=customtkinter.NORMAL)
         self.check_boxes.measure_by_items.configure(state=customtkinter.NORMAL)
         self.check_boxes.measure_by_other.configure(state=customtkinter.NORMAL)
+
+    def populate_measurement_report_start(self):
+        self.report.enter_measurement_id()
+        self.report.enter_measurer()
+        self.report.enter_start_time()
+        self.report.enter_team_name(self.option_menus)
+        self.report.enter_process_name(self.option_menus)
+        self.report.enter_team_member(self.option_menus)
+
+    def populate_measurement_report_end(self):
+        self.report.enter_elapsed_time(self.elapsed_time)
+        self.report.enter_stop_time()
+        self.report.save_report()
 
 
 app = MeasurementApp()
