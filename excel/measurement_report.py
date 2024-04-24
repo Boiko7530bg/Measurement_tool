@@ -21,20 +21,29 @@ class MeasurementReport:
     def __init__(self):
         self.report_wb = openpyxl.load_workbook(self.REPORT_WB_PATH)
         self.report_ws = self.report_wb.active
-        self.last_row = self._increase_row_number_by_one(self.REPORT_COLUMN_NAMES['measurement_id'])
+        self.last_row = self._find_report_last_row(self.REPORT_COLUMN_NAMES['measurement_id'])
 
     def enter_measurement_id(self):
-        pass
+        measurement_id = 0
+        if self.last_row == 1:
+            measurement_id = 1
+        else:
+            measurement_id = self.report_ws['A' + str(self.last_row)].value
+            measurement_id += 1
+
+        self.last_row = self._increase_row_number_by_one(self.REPORT_COLUMN_NAMES['measurement_id'])
+        target_cell = f"{self.REPORT_COLUMN_NAMES['measurement_id']}{str(self.last_row)}"
+        self._populate_report_cell(target_cell, measurement_id)
 
     def enter_start_time(self):
         target_cell = f"{self.REPORT_COLUMN_NAMES['time_start']}{str(self.last_row)}"
         start_time = datetime.datetime.now()
-        self.report_ws[target_cell] = start_time
+        self._populate_report_cell(target_cell, start_time)
 
     def enter_stop_time(self):
         target_cell = f"{self.REPORT_COLUMN_NAMES['time_end']}{str(self.last_row)}"
         stop_time = datetime.datetime.now()
-        self.report_ws[target_cell] = stop_time
+        self._populate_report_cell(target_cell, stop_time)
 
     def save_report(self):
         try:
@@ -49,8 +58,12 @@ class MeasurementReport:
     def _increase_row_number_by_one(self, column: str):
         return self._find_report_last_row(column) + 1
 
+    def _populate_report_cell(self, cell, value):
+        self.report_ws[cell] = value
+
 
 wb = MeasurementReport()
+wb.enter_measurement_id()
 wb.enter_start_time()
 wb.enter_stop_time()
 wb.save_report()
