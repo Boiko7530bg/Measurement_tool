@@ -12,3 +12,7 @@ class MainWindowOptionMenus(customtkinter.CTkOptionMenu):
         self.select_person_option = customtkinter.CTkOptionMenu(master, values=[f"Person{x}" for x in range(1, 20)],
                                                                 anchor="center")
         self.select_person_option.place(x=655, y=120)
+
+        self.select_process_option = customtkinter.CTkOptionMenu(master, values=[f"Process{x}" for x in range(1, 20)],
+                                                                anchor="center")
+        self.select_process_option.place(x=655, y=200)

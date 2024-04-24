@@ -20,3 +20,7 @@ class MainWindowLabels(customtkinter.CTkLabel):
         self.comments_label = customtkinter.CTkLabel(master, text="", fg_color="grey20", corner_radius=6, width=350, height=40,
                                                          font=("halvetika", 10))
         self.comments_label.place(x=155, y=150)
+
+        self.select_team_process = customtkinter.CTkLabel(master, text="Process:", fg_color="grey20", width=150,
+                                                         font=("halvetika", 15))
+        self.select_team_process.place(x=650, y=160)
