@@ -4,13 +4,13 @@ import time
 import customtkinter
 
 
-from main_window.buttons import MainWindowButtons
-from main_window.frames import MainWindowFrames
-from measurement_tool.main_window.check_boxes import MainWindowCheckBoxes
-from measurement_tool.main_window.labels import MainWindowLabels
-from measurement_tool.main_window.option_menus import MainWindowOptionMenus
-from measurement_tool.main_window.radio_buttons import MainWindowRaioButtons
-from measurement_tool.main_window.text_boxes import MainWindowTextBoxes
+from main_window_widgets.buttons import MainWindowButtons
+from main_window_widgets.frames import MainWindowFrames
+from measurement_tool.main_window_widgets.check_boxes import MainWindowCheckBoxes
+from measurement_tool.main_window_widgets.labels import MainWindowLabels
+from measurement_tool.main_window_widgets.option_menus import MainWindowOptionMenus
+from measurement_tool.main_window_widgets.radio_buttons import MainWindowRaioButtons
+from measurement_tool.main_window_widgets.text_boxes import MainWindowTextBoxes
 
 customtkinter.set_appearance_mode("dark")
 customtkinter.set_default_color_theme("green")
