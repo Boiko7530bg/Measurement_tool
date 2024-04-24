@@ -3,6 +3,8 @@ import os
 
 import openpyxl
 
+from measurement_tool.main_window_widgets.option_menus import MainWindowOptionMenus
+
 
 class MeasurementReport:
     REPORT_WB_PATH = ".\\excel\\database\\measurement_report.xlsx"
@@ -13,7 +15,7 @@ class MeasurementReport:
                            "pause_total": "E",
                            "productive_time": "F",
                            "measured_number": "G",
-                           "client": "H",
+                           "team": "H",
                            "process": "I",
                            "team_member": "J",
                            "comment": "K"
@@ -25,7 +27,6 @@ class MeasurementReport:
         self.last_row = self._find_report_last_row(self.REPORT_COLUMN_NAMES['measurement_id'])
 
     def enter_measurement_id(self):
-        measurement_id = 0
         if self.last_row == 1:
             measurement_id = 1
         else:
@@ -59,6 +60,14 @@ class MeasurementReport:
         elapsed_time = datetime.time(hours, minutes, seconds)
         target_cell = f"{self.REPORT_COLUMN_NAMES['productive_time']}{str(self.last_row)}"
         self._populate_report_cell(target_cell, elapsed_time)
+
+    def enter_total_measured(self):
+        pass
+
+    def enter_team_name(self, team: MainWindowOptionMenus):
+        team_name = team.select_team_option.get()
+        target_cell = f"{self.REPORT_COLUMN_NAMES['productive_time']}{str(self.last_row)}"
+        self._populate_report_cell(target_cell, team_name)
 
     def save_report(self):
         try:

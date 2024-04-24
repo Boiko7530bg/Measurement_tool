@@ -6,11 +6,11 @@ import customtkinter
 
 from main_window_widgets.buttons import MainWindowButtons
 from main_window_widgets.frames import MainWindowFrames
-from measurement_tool.excel.measurement_report import MeasurementReport
-from measurement_tool.main_window_widgets.check_boxes import MainWindowCheckBoxes
-from measurement_tool.main_window_widgets.labels import MainWindowLabels
-from measurement_tool.main_window_widgets.option_menus import MainWindowOptionMenus
-from measurement_tool.main_window_widgets.text_boxes import MainWindowTextBoxes
+from excel.measurement_report import MeasurementReport
+from main_window_widgets.check_boxes import MainWindowCheckBoxes
+from main_window_widgets.labels import MainWindowLabels
+from main_window_widgets.option_menus import MainWindowOptionMenus
+from main_window_widgets.text_boxes import MainWindowTextBoxes
 
 customtkinter.set_appearance_mode("dark")
 customtkinter.set_default_color_theme("green")
@@ -57,6 +57,7 @@ class MeasurementApp(customtkinter.CTk):
             self.report.enter_measurement_id()
             self.report.enter_measurer()
             self.report.enter_start_time()
+            self.report.enter_team_name(self.option_menus)
             self.update()
             self.timer_running = True
 
