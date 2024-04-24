@@ -9,11 +9,11 @@ class MainWindowLabels(customtkinter.CTkLabel):
                                                          font=("halvetika", 15))
         self.measure_type_label.place(x=1, y=250)
 
-        self.select_team_label = customtkinter.CTkLabel(master, text="Select team:", fg_color="grey20", width=150,
+        self.select_team_label = customtkinter.CTkLabel(master, text="Client:", fg_color="grey20", width=150,
                                                         font=("halvetika", 15))
         self.select_team_label.place(x=650, y=1)
 
-        self.select_team_person = customtkinter.CTkLabel(master, text="Select person:", fg_color="grey20", width=150,
+        self.select_team_person = customtkinter.CTkLabel(master, text="Team member:", fg_color="grey20", width=150,
                                                          font=("halvetika", 15))
         self.select_team_person.place(x=650, y=80)
 
