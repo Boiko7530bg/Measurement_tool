@@ -4,7 +4,7 @@ import openpyxl
 
 
 class MeasurementReport:
-    REPORT_WB_PATH = "..\\excel\\database\\measurement_report.xlsx"
+    REPORT_WB_PATH = ".\\excel\\database\\measurement_report.xlsx"
     REPORT_COLUMN_NAMES = {"measurement_id": "A",
                            "username": "B",
                            "time_start": "C",
@@ -45,6 +45,15 @@ class MeasurementReport:
         stop_time = datetime.datetime.now()
         self._populate_report_cell(target_cell, stop_time)
 
+    def enter_elapsed_time(self, time: datetime):
+        hours = int(time // 3600)
+        minutes = int((time % 3600) // 60)
+        seconds = int(time % 60)
+
+        elapsed_time = datetime.time(hours, minutes, seconds)
+        target_cell = f"{self.REPORT_COLUMN_NAMES['productive_time']}{str(self.last_row)}"
+        self._populate_report_cell(target_cell, elapsed_time)
+
     def save_report(self):
         try:
             self.report_wb.save(self.REPORT_WB_PATH)
@@ -61,9 +70,3 @@ class MeasurementReport:
     def _populate_report_cell(self, cell, value):
         self.report_ws[cell] = value
 
-
-wb = MeasurementReport()
-wb.enter_measurement_id()
-wb.enter_start_time()
-wb.enter_stop_time()
-wb.save_report()

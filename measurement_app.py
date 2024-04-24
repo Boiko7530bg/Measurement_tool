@@ -6,10 +6,10 @@ import customtkinter
 
 from main_window_widgets.buttons import MainWindowButtons
 from main_window_widgets.frames import MainWindowFrames
+from measurement_tool.excel.measurement_report import MeasurementReport
 from measurement_tool.main_window_widgets.check_boxes import MainWindowCheckBoxes
 from measurement_tool.main_window_widgets.labels import MainWindowLabels
 from measurement_tool.main_window_widgets.option_menus import MainWindowOptionMenus
-from measurement_tool.main_window_widgets.radio_buttons import MainWindowRaioButtons
 from measurement_tool.main_window_widgets.text_boxes import MainWindowTextBoxes
 
 customtkinter.set_appearance_mode("dark")
@@ -25,11 +25,12 @@ class MeasurementApp(customtkinter.CTk):
         self.geometry(f"{800}x{480}")
         self.resizable(width=False, height=False)
 
+        self.report = MeasurementReport()
+
         self.frames = MainWindowFrames(self)
         self.buttons = MainWindowButtons(self)
         self.labels = MainWindowLabels(self)
         self.check_boxes = MainWindowCheckBoxes(self)
-        #self.radio_buttons = MainWindowRaioButtons(self)
         self.text_boxes = MainWindowTextBoxes(self)
         self.option_menus = MainWindowOptionMenus(self)
 
@@ -53,6 +54,8 @@ class MeasurementApp(customtkinter.CTk):
 
         if not self.timer_running:
             self.start_time = time.time() - self.elapsed_time
+            self.report.enter_measurement_id()
+            self.report.enter_start_time()
             self.update()
             self.timer_running = True
 
@@ -65,6 +68,9 @@ class MeasurementApp(customtkinter.CTk):
         self.timer_running = False
         self.timer_stopped = True
 
+        self.report.enter_elapsed_time(self.elapsed_time)
+        self.report.enter_stop_time()
+        self.report.save_report()
         self.buttons.start_button.configure(state=customtkinter.NORMAL)
         self.buttons.stop_button.configure(state=customtkinter.DISABLED)
         self.buttons.pause_button.configure(state=customtkinter.DISABLED)
