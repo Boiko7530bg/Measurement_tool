@@ -10,6 +10,7 @@ from excel.measurement_report import MeasurementReport
 from main_window_widgets.check_boxes import MainWindowCheckBoxes
 from main_window_widgets.labels import MainWindowLabels
 from main_window_widgets.option_menus import MainWindowOptionMenus
+from main_window_widgets.scrollable_frames import MainWindowScrollableFrames
 from main_window_widgets.text_boxes import MainWindowTextBoxes
 
 customtkinter.set_appearance_mode("dark")
@@ -33,6 +34,7 @@ class MeasurementApp(customtkinter.CTk):
         self.check_boxes = MainWindowCheckBoxes(self)
         self.text_boxes = MainWindowTextBoxes(self)
         self.option_menus = MainWindowOptionMenus(self)
+        self.scrollable_frames = MainWindowScrollableFrames(self)
 
         self.start_time = None
         self.paused_time = None
