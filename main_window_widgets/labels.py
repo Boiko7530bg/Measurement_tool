@@ -1,5 +1,7 @@
 import customtkinter
 
+from stopwatch import StopWatch
+
 
 class MainWindowLabels(customtkinter.CTkLabel):
     def __init__(self, master):
@@ -24,3 +26,9 @@ class MainWindowLabels(customtkinter.CTkLabel):
         self.select_team_process = customtkinter.CTkLabel(master, text="Process:", fg_color="grey20", width=150,
                                                          font=("halvetika", 15))
         self.select_team_process.place(x=650, y=160)
+
+        self.timer_label = customtkinter.CTkLabel(master, textvariable=master.stopwatch.time_var, fg_color="grey40",
+                                                  width=300,
+                                                  height=100,
+                                                  font=customtkinter.CTkFont(size=35, weight="bold"), corner_radius=10)
+        self.timer_label.place(x=250, y=30)

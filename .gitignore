@@ -1,3 +1,5 @@
 
 /excel/__pycache__
 /main_window_widgets/__pycache__
+/__pycache__
+*.pyc

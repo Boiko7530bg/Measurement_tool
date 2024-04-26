@@ -1,6 +1,3 @@
-import time
-
-
 import customtkinter
 
 
@@ -12,13 +9,13 @@ from main_window_widgets.labels import MainWindowLabels
 from main_window_widgets.option_menus import MainWindowOptionMenus
 from main_window_widgets.scrollable_frames import MainWindowScrollableFrames
 from main_window_widgets.text_boxes import MainWindowTextBoxes
+from stopwatch import StopWatch
 
 customtkinter.set_appearance_mode("dark")
 customtkinter.set_default_color_theme("green")
 
 
 class MeasurementApp(customtkinter.CTk):
-
     def __init__(self):
         super().__init__()
 
@@ -27,6 +24,7 @@ class MeasurementApp(customtkinter.CTk):
         self.resizable(width=False, height=False)
 
         self.report = MeasurementReport()
+        self.stopwatch = StopWatch(self)
 
         self.frames = MainWindowFrames(self)
         self.buttons = MainWindowButtons(self)
@@ -36,38 +34,17 @@ class MeasurementApp(customtkinter.CTk):
         self.option_menus = MainWindowOptionMenus(self)
         self.scrollable_frames = MainWindowScrollableFrames(self)
 
-        self.start_time = None
-        self.paused_time = None
+    def start_measurement(self):
+        self.stopwatch.start_stopwatch()
+        self.populate_measurement_report_start()
 
-        self.time_var = customtkinter.StringVar()
-        self.time_var.set("00:00:00")
-        self.elapsed_time = 0
-        self.timer_running = False
-        self.timer_stopped = False
-        self.timer_label = customtkinter.CTkLabel(self, textvariable=self.time_var, fg_color="grey40", width=300,
-                                                  height=100,
-                                                  font=customtkinter.CTkFont(size=35, weight="bold"), corner_radius=10)
-        self.timer_label.place(x=250, y=30)
+        self.buttons.start_button.configure(state=customtkinter.DISABLED)
+        self.buttons.stop_button.configure(state=customtkinter.NORMAL)
+        self.buttons.pause_button.configure(state=customtkinter.NORMAL)
+        self.lock_checkboxes_after_timer_start()
 
-    def start_stopwatch(self):
-        if self.timer_stopped:
-            self.elapsed_time = 0
-            self.timer_stopped = False
-
-        if not self.timer_running:
-            self.start_time = time.time() - self.elapsed_time
-            self.populate_measurement_report_start()
-            self.update()
-            self.timer_running = True
-
-            self.buttons.start_button.configure(state=customtkinter.DISABLED)
-            self.buttons.stop_button.configure(state=customtkinter.NORMAL)
-            self.buttons.pause_button.configure(state=customtkinter.NORMAL)
-            self.lock_checkboxes_after_timer_start()
-
-    def stop_stopwatch(self):
-        self.timer_running = False
-        self.timer_stopped = True
+    def end_measurement(self):
+        self.stopwatch.stop_stopwatch()
         self.populate_measurement_report_end()
 
         self.buttons.start_button.configure(state=customtkinter.NORMAL)
@@ -75,25 +52,12 @@ class MeasurementApp(customtkinter.CTk):
         self.buttons.pause_button.configure(state=customtkinter.DISABLED)
         self.unlock_checkboxes_after_timer_stop()
 
-    def pause_stopwatch(self):
-        if self.timer_running:
-            self.paused_time = self.start_time
-            self.timer_running = False
+    def pause_measurement(self):
+        self.stopwatch.pause_stopwatch()
 
-            self.buttons.start_button.configure(state=customtkinter.NORMAL)
-            self.buttons.stop_button.configure(state=customtkinter.NORMAL)
-            self.buttons.pause_button.configure(state=customtkinter.DISABLED)
-
-    def update(self):
-        if self.timer_running:
-            self.elapsed_time = time.time() - self.start_time
-
-        hours = int(self.elapsed_time // 3600)
-        minutes = int((self.elapsed_time % 3600) // 60)
-        seconds = int(self.elapsed_time % 60)
-
-        self.time_var.set("{:02d}:{:02d}:{:02d}".format(hours, minutes, seconds))
-        self.after(1000, self.update)
+        self.buttons.start_button.configure(state=customtkinter.NORMAL)
+        self.buttons.stop_button.configure(state=customtkinter.NORMAL)
+        self.buttons.pause_button.configure(state=customtkinter.DISABLED)
 
     def lock_checkboxes_after_timer_start(self):
         self.check_boxes.measure_by_lines.configure(state=customtkinter.DISABLED)
@@ -114,7 +78,7 @@ class MeasurementApp(customtkinter.CTk):
         self.report.enter_team_member(self.option_menus)
 
     def populate_measurement_report_end(self):
-        self.report.enter_elapsed_time(self.elapsed_time)
+        self.report.enter_elapsed_time(self.stopwatch.elapsed_time)
         self.report.enter_stop_time()
         self.report.save_report()
 
