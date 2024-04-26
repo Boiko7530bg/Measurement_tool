@@ -9,7 +9,7 @@ class MainWindowLabels(customtkinter.CTkLabel):
 
         self.measure_type_label = customtkinter.CTkLabel(master, text="Measure by:", fg_color="grey20", width=150,
                                                          font=("halvetika", 15))
-        self.measure_type_label.place(x=1, y=250)
+        self.measure_type_label.place(x=1, y=220)
 
         self.select_team_label = customtkinter.CTkLabel(master, text="Client:", fg_color="grey20", width=150,
                                                         font=("halvetika", 15))
