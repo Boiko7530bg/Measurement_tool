@@ -14,11 +14,12 @@ class MeasurementReport:
                            "time_end": "D",
                            "pause_total": "E",
                            "productive_time": "F",
-                           "measured_number": "G",
-                           "team": "H",
-                           "process": "I",
-                           "team_member": "J",
-                           "comment": "K"
+                           "measure_type": "G",
+                           "measure_count": "H",
+                           "team": "I",
+                           "process": "J",
+                           "team_member": "K",
+                           "comment": "L"
                            }
 
     def __init__(self):
