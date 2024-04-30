@@ -76,6 +76,7 @@ class MeasurementApp(customtkinter.CTk):
         self.report.enter_team_name(self.option_menus)
         self.report.enter_process_name(self.option_menus)
         self.report.enter_team_member(self.option_menus)
+        self.report.enter_measure_type(self.check_boxes)
 
     def populate_measurement_report_end(self):
         self.report.enter_elapsed_time(self.stopwatch.elapsed_time)

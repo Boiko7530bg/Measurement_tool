@@ -3,6 +3,7 @@ import os
 
 import openpyxl
 
+from main_window_widgets.check_boxes import MainWindowCheckBoxes
 from measurement_tool.main_window_widgets.option_menus import MainWindowOptionMenus
 
 
@@ -61,6 +62,11 @@ class MeasurementReport:
         elapsed_time = datetime.time(hours, minutes, seconds)
         target_cell = f"{self.REPORT_COLUMN_NAMES['productive_time']}{str(self.last_row)}"
         self._populate_report_cell(target_cell, elapsed_time)
+
+    def enter_measure_type(self, measure_type: MainWindowCheckBoxes):
+        measure = measure_type.checkbox_state(measure_type)
+        target_cell = f"{self.REPORT_COLUMN_NAMES['measure_type']}{str(self.last_row)}"
+        self._populate_report_cell(target_cell, measure)
 
     def enter_total_measured(self):
         pass
